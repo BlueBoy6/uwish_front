@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import history from 'history/browser';
 import { useDispatch } from 'react-redux';
 import InputText from 'ui/components/form/InputText';
 import Field from 'ui/components/form/Field';
@@ -23,7 +24,7 @@ export function Login() {
   const tryAuth = () =>
     dispatch({
       type: 'user/call-authenticate',
-      payload: { identifier: pseudo, password },
+      payload: { identifier: pseudo, password, history },
     });
 
   return (

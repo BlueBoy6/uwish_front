@@ -1,7 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export default function Section({ children }: { children: JSX.Element[] }) {
+export default function Section({
+  children,
+}: {
+  children: JSX.Element | JSX.Element[];
+}) {
   return <SectionStyle>{children}</SectionStyle>;
 }
 

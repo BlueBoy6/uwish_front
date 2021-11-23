@@ -4,6 +4,7 @@ import authenticate from 'infra/authent';
 type authentDispatchType = {
   identifier: string;
   password: string;
+  history: any;
 };
 
 type actionType = {
@@ -17,8 +18,9 @@ function* authenticateSaga(action: actionType): Generator {
     identifier: action.payload.identifier,
     password: action.payload.password,
   });
+  const history = action.payload.history;
   console.log("alors l'authent", auth);
-  yield put({ type: 'user/authenticate', auth });
+  yield put({ type: 'user/authenticate', payload: { auth, history } });
 }
 
 export function* watchAuthenticateAsync() {

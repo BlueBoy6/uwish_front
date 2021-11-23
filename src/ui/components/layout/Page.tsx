@@ -5,7 +5,7 @@ export default function Page({
   children,
   verticalAlign,
 }: {
-  children: JSX.Element[];
+  children: JSX.Element | JSX.Element[];
   verticalAlign?: string;
 }) {
   return <PageStyle verticalAlign={verticalAlign}>{children}</PageStyle>;
