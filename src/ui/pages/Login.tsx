@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import history from 'history/browser';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import InputText from 'ui/components/form/InputText';
 import Field from 'ui/components/form/Field';
@@ -12,7 +12,7 @@ export function Login() {
   const [password, setPassword] = useState<string>('');
 
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const changeEventPseudo = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setPseudo(e.target.value);
   };
@@ -24,7 +24,7 @@ export function Login() {
   const tryAuth = () =>
     dispatch({
       type: 'user/call-authenticate',
-      payload: { identifier: pseudo, password, history },
+      payload: { identifier: pseudo, password, navigate },
     });
 
   return (

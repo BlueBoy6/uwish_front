@@ -6,10 +6,8 @@ export default function* authenticate({
 }: {
   identifier: string;
   password: string;
-}): Generator {
+}): Generator<any | boolean> {
   try {
-    console.log('identifier call api : ', identifier);
-    console.log('pass call api : ', password);
     const authent = yield api.post({
       url: '/auth/local',
       data: {
@@ -17,10 +15,9 @@ export default function* authenticate({
         password: password,
       },
     });
-    console.log('retour de lotantification', authent);
     return authent;
   } catch (err: any) {
-    console.error('la con de lui ça a fail : ', err.message);
+    console.error('ah shit bro authent failed : ', err.message);
     return false;
   }
 }

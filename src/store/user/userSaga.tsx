@@ -4,7 +4,7 @@ import authenticate from 'infra/authent';
 type authentDispatchType = {
   identifier: string;
   password: string;
-  history: any;
+  navigate: any;
 };
 
 type actionType = {
@@ -12,15 +12,21 @@ type actionType = {
   payload: authentDispatchType;
 };
 
+type payloadAuthenticateType = {
+  jwt: string;
+  user: any;
+};
+
 function* authenticateSaga(action: actionType): Generator {
-  console.log('payload SAGA : ', action);
   const auth = yield authenticate({
     identifier: action.payload.identifier,
     password: action.payload.password,
   });
-  const history = action.payload.history;
-  console.log("alors l'authent", auth);
-  yield put({ type: 'user/authenticate', payload: { auth, history } });
+  if (auth) {
+    const navigate = action.payload.navigate;
+    sessionStorage.setItem('USER_TOKEN', (auth as payloadAuthenticateType).jwt);
+    yield put({ type: 'user/authenticate', payload: { auth, navigate } });
+  }
 }
 
 export function* watchAuthenticateAsync() {
