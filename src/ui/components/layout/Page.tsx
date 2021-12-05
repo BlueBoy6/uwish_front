@@ -14,8 +14,9 @@ type PageStyleProps = {
   verticalAlign?: string;
 };
 
+// background: #f2f2f2;
 const PageStyle = styled.div<PageStyleProps>`
-  background: #f2f2f2;
+  background: #2f2f2f;
   min-height: 100vh;
   max-width: 100vw;
   padding: 20px;

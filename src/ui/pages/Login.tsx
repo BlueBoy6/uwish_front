@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import InputText from 'ui/components/form/InputText';
 import Field from 'ui/components/form/Field';
 import Footer from 'ui/components/pages/login/footer';
@@ -8,8 +8,8 @@ import Section from 'ui/components/layout/Section';
 import Page from 'ui/components/layout/Page';
 
 export function Login() {
-  const [pseudo, setPseudo] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  const [pseudo, setPseudo] = useState<string>('David');
+  const [password, setPassword] = useState<string>('David*');
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -23,13 +23,18 @@ export function Login() {
   };
   const tryAuth = () =>
     dispatch({
-      type: 'user/call-authenticate',
-      payload: { identifier: pseudo, password, navigate },
+      type: 'user/async-authenticate',
+      payload: { identifier: pseudo, password },
     });
+  const user = useSelector((state: any) => state?.user) as any;
+  useEffect(() => {
+    console.log('user : ', user)
+    if(user.jwt !== undefined) navigate('/dashboard')
+  }, [user, navigate])
 
   return (
     <Page verticalAlign="start">
-      <Section>
+      <Section title="Login">
         <Field>
           <InputText
             label="pseudo"

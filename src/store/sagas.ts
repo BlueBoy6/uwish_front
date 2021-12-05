@@ -1,7 +1,7 @@
 import { all } from 'redux-saga/effects';
-import { watchIncrementAsync } from './counter/counterSaga';
 import { watchAuthenticateAsync } from './user/userSaga';
+import { watchGroupAsync } from './group/groupSaga';
 
 export function* rootSaga() {
-  yield all([watchIncrementAsync(), watchAuthenticateAsync()]);
+  yield all([ watchAuthenticateAsync(), watchGroupAsync()]);
 }

@@ -1,12 +1,12 @@
 import Section from 'ui/components/layout/Section';
-import Page from 'ui/components/layout/Page';
+import Bands from 'ui/components/pages/dashboard/Bands';
+import UserWishlist from 'ui/components/pages/dashboard/UserWishlist';
 
 export function Dashboard() {
   return (
-    <Page>
-      <Section>
-        <h1>Dashboard</h1>
+      <Section title='Dashboard'>
+        <Bands />
+        <UserWishlist/>
       </Section>
-    </Page>
   );
 }

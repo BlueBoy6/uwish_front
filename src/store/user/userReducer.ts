@@ -1,28 +1,25 @@
 import { authenticate } from 'store/user/userActions';
+import {persist} from 'store/persist';
 
 const userState = {
-  user: {
-    pseudo: null,
-  },
+  ...persist(null, 'user'),
 } as userStateType;
 
 export type userStateType = {
-  user: {
-    pseudo: String | null;
-  };
+  user: null;
 };
+
+const disconnect = () => {
+  console.log('no more user');
+  return null
+}
 
 export function userReducer(state = userState, action: any) {
   switch (action.type) {
     case 'user/authenticate':
       return authenticate(state, action.payload);
     case 'user/disconnect':
-      return {
-        user: {
-          ...state.user,
-          pseudo: null,
-        },
-      };
+      return disconnect();
     default:
       return state;
   }

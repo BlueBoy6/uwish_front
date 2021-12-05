@@ -1,16 +1,16 @@
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 // import { createLogger } from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
-import { counterReducer } from './counter/counterReducer';
 import { userReducer } from 'store/user/userReducer';
+import { groupReducer } from './group/groupReducer';
 import { rootSaga } from './sagas';
 
 export function useReduxStore() {
   const sagaMiddleware = createSagaMiddleware();
   // const logger = createLogger();
   const rootReducer = combineReducers({
-    counter: counterReducer,
     user: userReducer,
+    group: groupReducer
   });
   // const enhancers = applyMiddleware(logger, sagaMiddleware);
   const enhancers = applyMiddleware(sagaMiddleware);

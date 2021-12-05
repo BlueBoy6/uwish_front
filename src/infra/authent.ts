@@ -1,4 +1,5 @@
 import api from 'infra/api';
+import { payloadAuthenticateType } from 'types/authent';
 
 export default function* authenticate({
   identifier,
@@ -8,16 +9,18 @@ export default function* authenticate({
   password: string;
 }): Generator<any | boolean> {
   try {
-    const authent = yield api.post({
-      url: '/auth/local',
-      data: {
-        identifier: identifier,
-        password: password,
-      },
+    const authent = yield api.post('/auth/local', {
+      identifier: identifier,
+      password: password,
     });
-    return authent;
+    const authentData = (authent as any).data
+    console.log('authentData', authentData)
+    return {
+      jwt: (authentData as payloadAuthenticateType).jwt,
+      ...(authentData as payloadAuthenticateType).user,
+    };
   } catch (err: any) {
-    console.error('ah shit bro authent failed : ', err.message);
+    console.error('Ah shit bro, authent failed : ', err.message);
     return false;
   }
 }
