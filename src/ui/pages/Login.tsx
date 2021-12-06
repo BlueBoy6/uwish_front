@@ -6,6 +6,8 @@ import Field from 'ui/components/form/Field';
 import Footer from 'ui/components/pages/login/footer';
 import Section from 'ui/components/layout/Section';
 import Page from 'ui/components/layout/Page';
+import Button from 'ui/components/form/Button';
+import styled from 'styled-components';
 
 export function Login() {
   const [pseudo, setPseudo] = useState<string>('David');
@@ -28,9 +30,11 @@ export function Login() {
     });
   const user = useSelector((state: any) => state?.user) as any;
   useEffect(() => {
-    console.log('user : ', user)
-    if(user.jwt !== undefined) navigate('/dashboard')
-  }, [user, navigate])
+    console.log('user : ', user);
+    if(user && user.jwt !== undefined) navigate('/dashboard');
+  }, [user, navigate]);
+
+
 
   return (
     <Page verticalAlign="start">
@@ -50,8 +54,14 @@ export function Login() {
             onSubmit={tryAuth}
           />
         </Field>
+        <ButtonWithMargin onClick={tryAuth}>Zéé parti</ButtonWithMargin>
       </Section>
       <Footer />
     </Page>
   );
 }
+
+
+const ButtonWithMargin = styled(Button)`
+margin-top: 20px;
+`;

@@ -5,7 +5,7 @@ export default function Section({
   children,
   title,
 }: {
-  children: JSX.Element | JSX.Element[];
+  children: JSX.Element | JSX.Element[] | string;
   title? : String ;
 }) {
   return (

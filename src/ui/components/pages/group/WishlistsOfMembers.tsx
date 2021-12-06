@@ -25,7 +25,7 @@ export default function WishlistsOfMembers({
 
 const WishlistsStyle = styled.div`
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   grid-gap: 10px 10px;
 `;
 

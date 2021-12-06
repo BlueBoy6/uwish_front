@@ -17,8 +17,8 @@ type PageStyleProps = {
 // background: #f2f2f2;
 const PageStyle = styled.div<PageStyleProps>`
   background: #2f2f2f;
-  min-height: 100vh;
-  max-width: 100vw;
+  min-height: calc(100vh - 40px);
+  min-width: calc(100vw - 40px);
   padding: 20px;
   display: grid;
   align-content: ${(props) => props.verticalAlign || 'start'};
