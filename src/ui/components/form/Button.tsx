@@ -4,12 +4,14 @@ import styled from 'styled-components';
 export default function Button({
   children,
   onClick,
+  className
 }: {
   children: JSX.Element | JSX.Element[] | string;
-  onClick?: Function;
+    onClick?: Function;
+    className?: string
 }) {
   const emitOnClick = (e: MouseEvent) => onClick && onClick(e);
-  return <ButtonStyled onClick={emitOnClick}>{children}</ButtonStyled>;
+  return <ButtonStyled className={className ? className : ''} onClick={emitOnClick}>{children}</ButtonStyled>;
 }
 
 const ButtonStyled = styled.button`

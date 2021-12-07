@@ -31,10 +31,8 @@ export function Login() {
   const user = useSelector((state: any) => state?.user) as any;
   useEffect(() => {
     console.log('user : ', user);
-    if(user && user.jwt !== undefined) navigate('/dashboard');
+    if (user && user.jwt !== undefined) navigate('/dashboard');
   }, [user, navigate]);
-
-
 
   return (
     <Page verticalAlign="start">
@@ -61,7 +59,6 @@ export function Login() {
   );
 }
 
-
 const ButtonWithMargin = styled(Button)`
-margin-top: 20px;
+  margin-top: 20px;
 `;

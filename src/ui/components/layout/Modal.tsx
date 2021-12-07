@@ -40,6 +40,8 @@ const SubSectionStyle = styled.div`
   background: #f0f0f0;
   box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.1);
   min-width: 400px;
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
 `;
 
 const LayoutFixed = styled.div`

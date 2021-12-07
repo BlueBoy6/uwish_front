@@ -11,6 +11,8 @@ function* getGroupSaga(action: any): Generator {
   }
 }
 
+
+
 export function* watchGroupAsync() {
   yield takeEvery('group/async-get-group', getGroupSaga);
 }

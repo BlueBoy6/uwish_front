@@ -3,14 +3,11 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 export default function Bands() {
-    const bands = useSelector((state: any) => {
-      console.log('state in bands',state)
-    return state?.user?.bands;
-  });
+  const bands = useSelector((state: any) => state?.user?.bands);
   const navigate = useNavigate();
 
   return (
-    <div>
+    <GroupStyled>
       <h2>Vos groupes</h2>
       <BandsList>
         {bands
@@ -24,9 +21,14 @@ export default function Bands() {
             ))
           : "Vous n'êtes dans aucun groupe"}
       </BandsList>
-    </div>
+    </GroupStyled>
   );
 }
+
+const GroupStyled = styled.div`
+  margin-top: 20px;
+`;
+
 const BandsList = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);

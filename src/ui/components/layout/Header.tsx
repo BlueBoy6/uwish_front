@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Section from './Section';
+import Button from '../form/Button';
 
 export default function Header() {
   const navigate = useNavigate();
@@ -12,21 +13,27 @@ export default function Header() {
     sessionStorage.clear();
     dispatch({ type: 'user/disconnect' });
     navigate('/');
-    };
-    const back = () => {
-        navigate(-1)
-        dispatch({type: 'group/clean'})
-    };
+  };
+  const back = () => {
+    navigate(-1);
+    dispatch({ type: 'group/clean' });
+  };
 
   return (
-    <SectionStyle>
-      <button onClick={back}>Retour</button>
-      <button onClick={disconnect}>J'me barre</button>
-    </SectionStyle>
+    <Section>
+      <GridContainer>
+        <ButtonStyled onClick={back}>← Retour</ButtonStyled>
+        <ButtonStyled onClick={disconnect}>🏃 J'me barre</ButtonStyled>
+      </GridContainer>
+    </Section>
   );
 }
+const GridContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+`;
 
-const SectionStyle = styled(Section)`
-  display: grid;
-  margin: 20px;
+const ButtonStyled = styled(Button)`
+  display: inline-grid;
 `;

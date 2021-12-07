@@ -4,9 +4,11 @@ import styled from 'styled-components';
 export default function Section({
   children,
   title,
+  className
 }: {
   children: JSX.Element | JSX.Element[] | string;
-  title? : String ;
+    title?: String;
+    className?: String;
 }) {
   return (
     <SectionStyle>

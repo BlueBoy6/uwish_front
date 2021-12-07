@@ -4,9 +4,9 @@ import UserWishlist from 'ui/components/pages/dashboard/UserWishlist';
 
 export function Dashboard() {
   return (
-      <Section title='Dashboard'>
-        <Bands />
-        <UserWishlist/>
-      </Section>
+    <Section title="Dashboard">
+      <Bands />
+      <UserWishlist />
+    </Section>
   );
 }

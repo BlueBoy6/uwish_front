@@ -2,20 +2,24 @@ import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-export default function UserWishlist(props: any) {
+export default function UserWishlist() {
 
     const wishlist = useSelector((state: any) => state?.user?.wishlists);
     const navigate = useNavigate();   
 
     return (
-        <div>
+        <WishlistStyled>
             <h2>Vos wishlists </h2>
             <WishList>
                 {wishlist ? wishlist.map((band:any) => <WishStyle onClick={() => navigate(`/user-wishlist/${band.id}`)} key={band.id}>{band.name}</WishStyle>) : "Vous n'avez pas de wishlist... créez en une !"}
             </WishList>
-        </div>
+        </WishlistStyled>
     )
 }
+
+const WishlistStyled = styled.div`
+  margin-top: 20px;
+`;
 
 const WishList = styled.div`
     display: grid;
