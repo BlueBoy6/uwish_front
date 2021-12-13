@@ -1,11 +1,9 @@
 import axios from 'axios';
 
-const apiUrl = 'http://localhost:2333';
+const apiUrl = 'http://localhost:2337/api';
 // const apiUrl = "https://uwish.david6.fr";
 
 
-const instance = axios.create({
+export default axios.create({
   baseURL: apiUrl
-})
-
-export default instance;
+});

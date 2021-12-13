@@ -3,20 +3,23 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 export default function Bands() {
-  const bands = useSelector((state: any) => state?.user?.bands);
+  const groups = useSelector((state: any) => {
+    console.log('list de groupes :', state)
+    return state?.user?.groups
+  });
   const navigate = useNavigate();
 
   return (
     <GroupStyled>
       <h2>Vos groupes</h2>
       <BandsList>
-        {bands
-          ? bands.map((band: any) => (
+        {groups
+          ? groups.map((group: any) => (
               <BandStyle
-                onClick={() => navigate(`/group/${band.id}`)}
-                key={band.id}
+                onClick={() => navigate(`/group/${group.id}`)}
+                key={group.id}
               >
-                {band.name}
+                {group.attributes.name}
               </BandStyle>
             ))
           : "Vous n'êtes dans aucun groupe"}

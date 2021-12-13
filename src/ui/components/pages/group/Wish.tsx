@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { wishesType, wishlistType } from 'types/wishlist';
 import styled from 'styled-components';
 import Button from 'ui/components/form/Button';
@@ -8,6 +8,7 @@ import Button from 'ui/components/form/Button';
 export default function Wish({ wish, wishlist }: { wish: wishesType, wishlist: wishlistType }) {
 
   const [isOwnerShowed, setIsOwnerShowed] = useState<Boolean>(false);
+  const user = useSelector((state: any) => state.user);
   const dispatch = useDispatch();
 
   const stopPropagation = (e: any) => {
@@ -19,7 +20,7 @@ export default function Wish({ wish, wishlist }: { wish: wishesType, wishlist: w
   }
 
   const affectYourselfTowish = (e: any) => {
-    dispatch({type: 'wishlist/async-put-wishlist', payload: {wish ,wishlist}})
+    dispatch({type: 'wishlist/async-put-wishlist', payload: {wish ,wishlist, user: {id: user.id, username: user.username, role: user.role}}})
     stopPropagation(e)
   }
 

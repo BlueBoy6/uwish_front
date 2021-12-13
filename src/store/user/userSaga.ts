@@ -1,15 +1,20 @@
 import { put, takeEvery } from 'redux-saga/effects';
 import authenticate from 'infra/authent';
-import {actionType, payloadAuthenticateType} from 'types/authent'
+import {actionType, payloadAuthenticateType, userStoreType} from 'types/authent'
+import getGroupsOfUser from 'infra/groups';
+
 
 function* authenticateSaga(action: actionType): Generator {
-  const auth = yield authenticate({
+  const user = yield authenticate({
     identifier: action.payload.identifier,
     password: action.payload.password,
-  });
-  if (auth) {
-    sessionStorage.setItem('USER_TOKEN', (auth as payloadAuthenticateType).jwt);
-    yield put({ type: 'user/authenticate', payload: { ...(auth as payloadAuthenticateType) } });
+  }) as userStoreType | unknown;
+  if (user) {
+    sessionStorage.setItem('USER_TOKEN', (user as payloadAuthenticateType).jwt);
+    const userGroups = yield getGroupsOfUser((user as userStoreType).id);
+    console.log('userGroups : ', userGroups)
+    console.log('user : ', user)
+    yield put({ type: 'user/authenticate', payload: { user, groups: userGroups } });
   }
 }
 

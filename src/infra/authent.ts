@@ -1,5 +1,5 @@
 import api from 'infra/api';
-import { payloadAuthenticateType } from 'types/authent';
+import { payloadAuthenticateType, userStoreType } from 'types/authent';
 
 export default function* authenticate({
   identifier,
@@ -7,17 +7,17 @@ export default function* authenticate({
 }: {
   identifier: string;
   password: string;
-}): Generator<any | boolean> {
+}): Generator<userStoreType | boolean> {
   try {
     const authent = yield api.post('/auth/local', {
       identifier: identifier,
       password: password,
-    });
-    const authentData = (authent as any).data
-    console.log('authentData', authentData)
+    }) as any;
+    const data = (authent as any).data;
+    console.log('authent : ', authent)
     return {
-      jwt: (authentData as payloadAuthenticateType).jwt,
-      ...(authentData as payloadAuthenticateType).user,
+      jwt: data.jwt,
+      ...data.user,
     };
   } catch (err: any) {
     console.error('Ah shit bro, authent failed : ', err.message);

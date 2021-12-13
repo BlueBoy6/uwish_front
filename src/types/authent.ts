@@ -25,11 +25,13 @@ export type userApiType = {
   confirmed: boolean;
   blocked: boolean;
   updated_at: string;
-  bands: [];
-  wishlists: [];
 };
 
 export type payloadAuthenticateType = {
   jwt: string;
   user: userApiType;
+};
+
+export type userStoreType = userApiType & {
+  jwt: string;
 };

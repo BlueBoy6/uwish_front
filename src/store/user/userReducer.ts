@@ -7,6 +7,8 @@ const userState = {
 
 export type userStateType = {
   user: null;
+  groups: null,
+  wishlists: null
 };
 
 const disconnect = () => {
