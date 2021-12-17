@@ -1,10 +1,10 @@
 export type wishlistType = {
   id: number;
-  user: number;
   name: string;
-  band: number;
+  group: number;
   isPublic: string;
-  Wishes: wishesType[];
+  caller: ownerOfWish;
+  wishes: wishesType[];
   created_at: string;
   published_at: string;
   updated_at: string;
@@ -14,14 +14,14 @@ export type ownerOfWish = {
   username: string;
   email: string;
   confirmed: boolean;
-  role: number
-}
+  role: number;
+};
 
 export type wishesType = {
   id: number;
   name: string;
-  owner: ownerOfWish[];
+  participants:  number[] | null;
   type: null;
   url: string;
+  owner: ownerOfWish
 };
-

@@ -1,5 +1,6 @@
 import { put, takeEvery } from 'redux-saga/effects';
 import getGroup from 'infra/group';
+import { getWishlistsFromIds } from 'infra/wishlists';
 
 function* getGroupSaga(action: any): Generator {
   const group = yield getGroup(action.payload);
@@ -11,8 +12,17 @@ function* getGroupSaga(action: any): Generator {
   }
 }
 
-
+function* getWishlistsOfGroup(action: any): Generator {
+  const wishlists = yield getWishlistsFromIds(action.payload);
+  if (wishlists) {
+    yield put({
+      type: 'group/get-wishlists',
+      payload: wishlists,
+    });
+  }
+}
 
 export function* watchGroupAsync() {
   yield takeEvery('group/async-get-group', getGroupSaga);
+  yield takeEvery('group/async-get-wishlists', getWishlistsOfGroup);
 }

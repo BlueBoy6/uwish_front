@@ -12,7 +12,6 @@ export type userStateType = {
 };
 
 const disconnect = () => {
-  console.log('no more user');
   return null
 }
 

@@ -12,8 +12,6 @@ function* authenticateSaga(action: actionType): Generator {
   if (user) {
     sessionStorage.setItem('USER_TOKEN', (user as payloadAuthenticateType).jwt);
     const userGroups = yield getGroupsOfUser((user as userStoreType).id);
-    console.log('userGroups : ', userGroups)
-    console.log('user : ', user)
     yield put({ type: 'user/authenticate', payload: { user, groups: userGroups } });
   }
 }

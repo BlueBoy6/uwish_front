@@ -10,10 +10,9 @@ export default function ModalOfWishlist({
   onClickout: Function;
 }) {
 
-
   return (
     <Modal title={wishlist.name} onClickout={onClickout}>
-      {wishlist.Wishes.map((wish) => (
+      {wishlist.wishes.map((wish) => (
         <Wish key={wish.id} wish={wish} wishlist={wishlist} />
       ))}
     </Modal>

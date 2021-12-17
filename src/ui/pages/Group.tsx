@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Section from 'ui/components/layout/Section';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,29 +8,30 @@ import WishlistsOfMembers from 'ui/components/pages/group/WishlistsOfMembers';
 
 export default function UserWishlist() {
   let { id } = useParams<'id'>();
+  const [tried, setTried] = useState(false);
 
   const dispatch = useDispatch();
 
   const group = useSelector((state: any) => state?.group) as any;
-  console.log('group Page', group);
 
   useEffect(() => {
-    if (!group.name) {
-      console.log('on tente de récupérer')
+    if (!tried) {
       dispatch({
         type: 'group/async-get-group',
         payload: id,
       });
+      setTried(true);
     }
-  }, [group, dispatch, id]);
+  }, [tried, dispatch, id]);
 
-  return (
-    <Section title={group.name}>
-      <p>Groupe créé : {formatForDisplay(group.created_at)}</p>
-      <Members members={group.users} />
-      <WishlistsOfMembers wishlists={group.wishlists} />
-    </Section>
-  );
+  if (group) {
+    return (
+      <Section title={group.name}>
+        <p>Groupe créé : {formatForDisplay(group.createdAt)}</p>
+        <Members members={group.members} />
+        <WishlistsOfMembers wishlists={group.wishlists} />
+      </Section>
+    );
+  }
+  return <div>Oups on a pas trouvé ton groupe..</div>;
 }
-
-

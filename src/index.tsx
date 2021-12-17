@@ -1,4 +1,4 @@
-import React, { StrictMode } from 'react';
+import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { useReduxStore } from 'store/store';
@@ -16,12 +16,7 @@ function Root() {
 
 function createApp() {
   const rootElement = document.getElementById('root');
-  render(
-    <StrictMode>
-      <Root />
-    </StrictMode>,
-    rootElement,
-  );
+  render(<Root />, rootElement);
 }
 
 createApp();

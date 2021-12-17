@@ -1,5 +1,5 @@
 import api from 'infra/api';
-import { payloadAuthenticateType, userStoreType } from 'types/authent';
+import { userStoreType } from 'types/authent';
 
 export default function* authenticate({
   identifier,
@@ -14,7 +14,6 @@ export default function* authenticate({
       password: password,
     }) as any;
     const data = (authent as any).data;
-    console.log('authent : ', authent)
     return {
       jwt: data.jwt,
       ...data.user,

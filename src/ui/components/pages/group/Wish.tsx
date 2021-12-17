@@ -9,20 +9,23 @@ export default function Wish({ wish, wishlist }: { wish: wishesType, wishlist: w
 
   const [isOwnerShowed, setIsOwnerShowed] = useState<Boolean>(false);
   const user = useSelector((state: any) => state.user);
+  const membersOfGroup = useSelector((state: any) => state.group?.members);
   const dispatch = useDispatch();
 
   const stopPropagation = (e: any) => {
     e.stopPropagation();
   };
+
   const openWish = (e: any) => {
     setIsOwnerShowed(!isOwnerShowed)
     stopPropagation(e)
   }
 
   const affectYourselfTowish = (e: any) => {
-    dispatch({type: 'wishlist/async-put-wishlist', payload: {wish ,wishlist, user: {id: user.id, username: user.username, role: user.role}}})
+    dispatch({ type: 'wishlist/async-add-participant', payload: { wish, userId: user.user.id } })
     stopPropagation(e)
   }
+  const userOfGroupFromId = (id: number) =>id !== null ?  membersOfGroup.find((member : any) => member.id === id) : {username: '?'}
 
 
   return (
@@ -33,15 +36,15 @@ export default function Wish({ wish, wishlist }: { wish: wishesType, wishlist: w
       <NameWish>
         <LinkStyled onClick={stopPropagation} as="a" rel="noopener" target="_blank" href={wish.url}>🔗</LinkStyled>
         <span>{wish.name} </span>
-        {wish.owner.length > 0 &&
+        {wish.participants !== null &&
           !isOwnerShowed &&
-          wish.owner.map((owner) => <Badge key={owner.id}> {owner.username[0]}</Badge>)}
+          wish.participants.map((participant, index) => <Badge key={index}> {userOfGroupFromId(participant).username[0]}</Badge>)}
       </NameWish>
       {isOwnerShowed && (
         <div>
           <button onClick={affectYourselfTowish}>CLICK</button>
-          {wish.owner.length > 0 ? (
-            wish.owner.map((owner) => <Owner key={owner.id}>💝 {owner.username}</Owner>)
+          {wish.participants !== null ? (
+            wish.participants.map((participant) => <Owner key={participant}>💝 {userOfGroupFromId(participant).username}</Owner>)
           ) : (
             <MessageNoOwner>
               <p>Personne ne s'est positionné sur ce souhait</p>

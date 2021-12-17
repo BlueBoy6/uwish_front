@@ -6,7 +6,7 @@ export default function SubSection({
   title,
   onClick,
 }: {
-  children: JSX.Element | JSX.Element[];
+  children: string | JSX.Element | JSX.Element[];
   title?: String;
   onClick?: Function;
   }) {

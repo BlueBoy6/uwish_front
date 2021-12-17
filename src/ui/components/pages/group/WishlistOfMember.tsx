@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { wishesType, wishlistType } from 'types/wishlist';
 import SubSection from 'ui/components/layout/SubSection';
-import { useSelector } from 'react-redux';
 import ModalOfWishlist from './ModalOfWishlist';
 
 export default function WishlistOfMember({
@@ -10,38 +9,42 @@ export default function WishlistOfMember({
   wishlist: wishlistType;
 }) {
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
-  const members = useSelector((state: any) => state?.group.users) as any;
-  const wishlistOwner = members.find(
-    (member: any) => member.id === wishlist.user,
-  );
-  const participants = wishlist.Wishes.reduce(
-    (counter: number, wish: wishesType): number => {
-      if (wish.owner.length > 0) counter += 1;
-      return counter;
-    },
-    0,
-  );
+
+
+  const participants = wishlist.wishes
+    ? wishlist.wishes.reduce((acc: number, wish: wishesType) => {
+        if (wish.participants !== null) acc += wish.participants.length;
+        return acc;
+      }, 0)
+    : 0;
 
   const openList = () => {
-    console.log('putain');
     setModalOpen(true);
   };
   const closeListModal = () => {
-    console.log('isModalOpen : ', isModalOpen);
     setModalOpen(false);
   };
 
-  return (
-    <SubSection onClick={openList}>
-      <>
-        <p>{wishlistOwner.username}</p>
-        <h4>{wishlist.name}</h4>
-        <p>{wishlist.Wishes.length} souhait(s)</p>
-        <p>{participants} participants</p>
-        {isModalOpen && (
-          <ModalOfWishlist onClickout={closeListModal} wishlist={wishlist} />
+  if (wishlist.caller) {
+    return (
+      <SubSection onClick={openList}>
+        {wishlist.caller && (
+          <>
+            <p>{wishlist.caller.username}</p>
+            <h4>{wishlist.name}</h4>
+            <p>{wishlist.wishes.length} souhait(s)</p>
+            <p>{participants} participants</p>
+            {isModalOpen && (
+              <ModalOfWishlist
+                onClickout={closeListModal}
+                wishlist={wishlist}
+              />
+            )}
+          </>
         )}
-      </>
-    </SubSection>
-  );
+      </SubSection>
+    );
+  } else {
+    return <SubSection>ça charge petit chenapan..</SubSection>;
+  }
 }

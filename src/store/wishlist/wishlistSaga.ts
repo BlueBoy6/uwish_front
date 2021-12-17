@@ -1,36 +1,32 @@
 import { put, takeEvery } from 'redux-saga/effects';
-import { putWishlist } from 'infra/wishlist';
-import { wishesType } from 'types/wishlist';
+import { putWish } from 'infra/wish';
 
-function* putWishlistSaga(action: any): Generator {
-  console.log('action :', action);
-  const wishlistUpdated = {
-    ...action.payload.wishlist,
-    Wishes: [
-      ...action.payload.wishlist.Wishes.map((wish: wishesType) => {
-        if (wish.id === action.payload.wish.id)
-          return {
-            ...wish,
-            owner: [...wish.owner, action.payload.user],
-          };
-        return wish;
-      }),
-    ],
-  };
-
-  console.log('updated :', wishlistUpdated);
-
-  const wishlist = yield putWishlist(
-    wishlistUpdated
-  );
-  //   if (wishlist) {
-  //     yield put({
-  //       type: 'group/get-group',
-  //       payload: { ...(wishlist as any) },
-  //     });
-  //   }
+function* toggleParticipant(action: actionTyped): Generator {
+  const { participants } = action.payload.wish;
+  let wishUpdated;
+  const sameUserId = (id: number) => id === action.payload.userId;
+  const notSameUserId = (id: number) => id !== action.payload.userId;
+  if (participants.some(sameUserId)) {
+    const participantsWithoutTheActualUser = participants.filter(notSameUserId);
+    wishUpdated = {
+      ...action.payload.wish,
+      participants: participantsWithoutTheActualUser,
+    };
+  } else {
+    wishUpdated = {
+      ...action.payload.wish,
+      participants: [...participants, action.payload.userId],
+    };
+  }
+  const wish = yield putWish(wishUpdated);
+  if (wish) yield put({type: 'group/update-wish', payload: wish})
 }
 
 export function* watchWishlistAsync() {
-  yield takeEvery('wishlist/async-put-wishlist', putWishlistSaga);
+  yield takeEvery('wishlist/async-add-participant', toggleParticipant);
 }
+
+type actionTyped = {
+  type: string;
+  payload: any;
+};

@@ -30,7 +30,6 @@ export function Login() {
     });
   const user = useSelector((state: any) => state?.user) as any;
   useEffect(() => {
-    console.log('user : ', user);
     if (user && user?.user?.jwt !== undefined) navigate('/dashboard');
   }, [user, navigate]);
 
