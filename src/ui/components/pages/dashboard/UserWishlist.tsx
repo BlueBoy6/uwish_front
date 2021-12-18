@@ -1,25 +1,35 @@
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 export default function UserWishlist() {
-  const wishlist = useSelector((state: any) => state?.user?.wishlists);
-  const state = useSelector((state: any) => state);
+  const dispatch = useDispatch();
+
+  const [tried, setTried] = useState<boolean>(false);
+  const wishlists = useSelector((state: any) => state?.user?.wishlists);
+  const userId = useSelector((state: any) => state?.user?.user?.id);
+
   const navigate = useNavigate();
 
-  console.log('state : ', state)
+  useEffect(() => {
+    if (!tried) {
+      dispatch({ type: 'user/async-get-user-wishlists', payload: {userId} });
+      setTried(true)
+    }
+  }, [tried, dispatch, userId]);
 
   return (
     <WishlistStyled>
-      <h2>Vos wishlists </h2>
+      <h2>Vos wishlists</h2>
       <WishList>
-        {wishlist
-          ? wishlist.map((band: any) => (
+        {wishlists
+          ? wishlists.map((wishlist: any) => (
               <WishStyle
-                onClick={() => navigate(`/user-wishlist/${band.id}`)}
-                key={band.id}
+                onClick={() => navigate(`/user-wishlist/${wishlist.id}`)}
+                key={wishlist.id}
               >
-                {band.name}
+                {wishlist.name}
               </WishStyle>
             ))
           : "Vous n'avez pas de wishlist... créez en une !"}

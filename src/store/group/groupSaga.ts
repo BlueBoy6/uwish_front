@@ -1,8 +1,9 @@
 import { put, takeEvery } from 'redux-saga/effects';
 import getGroup from 'infra/group';
 import { getWishlistsFromIds } from 'infra/wishlists';
+import { actionType } from 'types/authent';
 
-function* getGroupSaga(action: any): Generator {
+function* getGroupSaga(action: actionType): Generator {
   const group = yield getGroup(action.payload);
   if (group) {
     yield put({

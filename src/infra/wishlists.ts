@@ -5,15 +5,26 @@ export function* getWishlistsFromIds(
   wishlistIds: number[],
 ): Generator<any | boolean> {
   try {
-    const user_token = sessionStorage.getItem('USER_TOKEN');
     const { data }: any = yield api.get(
       `/wishlists?filters[group][id]=${wishlistIds}&populate=*`,
-      { headers: { Authorization: `Bearer ${user_token}` } },
     );
     return flatResponseFromApi(data.data);
   } catch (err: any) {
-    console.error('Ah shit bro, authent failed : ', err.message);
+    console.error('Ah shit bro, getWishlistsFromIds failed : ', err.message);
     return false;
   }
 }
 
+export function* getWishlistsOfUser(
+  userId: number
+): Generator<any | boolean> {
+  try {
+    const { data }: any = yield api.get(
+      `/wishlists?filters[caller][id][$eq]=${userId}&populate=*`,
+    );
+    return flatResponseFromApi(data.data);
+  } catch (err: any) {
+    console.error('Ah shit bro, getWishlistsOfUser failed : ', err.message);
+    return false;
+  }
+}
