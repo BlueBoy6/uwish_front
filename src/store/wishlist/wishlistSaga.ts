@@ -2,7 +2,7 @@ import { put, takeEvery } from 'redux-saga/effects';
 import { putWish } from 'infra/wish';
 
 function* toggleParticipant(action: actionTyped): Generator {
-  const { participants } = action.payload.wish;
+  const participants = action.payload.wish.participants || [];
   let wishUpdated;
   const sameUserId = (id: number) => id === action.payload.userId;
   const notSameUserId = (id: number) => id !== action.payload.userId;

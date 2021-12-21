@@ -7,6 +7,7 @@ import {
 } from 'types/authent';
 import getGroupsOfUser from 'infra/groups';
 import { getWishlistsOfUser } from 'infra/wishlists';
+import { getWishesWhereUserIsParticipant } from 'infra/wishes';
 
 function* authenticateSaga(action: actionType): Generator {
   const { password, identifier } = action.payload;
@@ -26,13 +27,26 @@ function* authenticateSaga(action: actionType): Generator {
 
 function* getUserWishlists(action: any): Generator {
   const wishlists = yield getWishlistsOfUser(action.payload.userId);
-  console.log({ wishlists });
   if (wishlists) {
     yield put({ type: 'user/get-user-wishlists', payload: wishlists });
+  }
+}
+
+function* getWishesWhereUserIsParticipantSaga(action: any): Generator {
+  const wishes = yield getWishesWhereUserIsParticipant(action.payload.userId);
+  if (wishes) {
+    yield put({
+      type: 'user/get-wishes-where-user-is-participant',
+      payload: wishes,
+    });
   }
 }
 
 export function* watchAuthenticateAsync() {
   yield takeEvery('user/async-authenticate', authenticateSaga);
   yield takeEvery('user/async-get-user-wishlists', getUserWishlists);
+  yield takeEvery(
+    'user/async-get-wishes-where-user-is-participant',
+    getWishesWhereUserIsParticipantSaga,
+  );
 }

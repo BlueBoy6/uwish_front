@@ -34,8 +34,7 @@ export default function WishlistsOfMembers({
     <div>
       <TitleStyle>Les listes disponnibles des membres</TitleStyle>
       <WishlistsStyle>
-        {tried &&
-          wishlists &&
+        {wishlists &&
           wishlists.map((wishlist: wishlistType) => (
             <WishlistOfMember key={wishlist.id} wishlist={wishlist} />
           ))}

@@ -1,4 +1,8 @@
-import { authenticate, updateUserWishlists } from 'store/user/userActions';
+import {
+  authenticate,
+  updateUserWishlists,
+  updateWishesWhereUserIsParticipant,
+} from 'store/user/userActions';
 import { persist } from 'store/persist';
 
 const userState = {
@@ -9,6 +13,7 @@ export type userStateType = {
   user: null;
   groups: null;
   wishlists: null;
+  wishesParticipant: null;
 };
 
 const disconnect = () => {
@@ -23,6 +28,8 @@ export function userReducer(state = userState, action: any) {
       return disconnect();
     case 'user/get-user-wishlists':
       return updateUserWishlists(state, action.payload);
+    case 'user/get-wishes-where-user-is-participant':
+      return updateWishesWhereUserIsParticipant(state, action.payload);
     default:
       return state;
   }

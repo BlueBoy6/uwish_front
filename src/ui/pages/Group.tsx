@@ -20,16 +20,20 @@ export default function UserWishlist() {
         type: 'group/async-get-group',
         payload: id,
       });
-      setTried(true);
+      console.log('group : ', group);
+      
+      if (group) {
+        setTried(true);
+      }
     }
-  }, [tried, dispatch, id]);
+  }, [tried, dispatch, id, group]);
 
   if (group) {
     return (
       <Section title={group.name}>
         <p>Groupe créé : {formatForDisplay(group.createdAt)}</p>
         <Members members={group.members} />
-        <WishlistsOfMembers wishlists={group.wishlists} />
+        {group.wishlists && <WishlistsOfMembers wishlists={group.wishlists} />}
       </Section>
     );
   }

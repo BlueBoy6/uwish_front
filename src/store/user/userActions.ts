@@ -12,3 +12,12 @@ export function updateUserWishlists(state: userStateType, payload: any) {
   newState['wishlists'] = payload;
   return newState;
 }
+
+export function updateWishesWhereUserIsParticipant(
+  state: userStateType,
+  payload: any,
+) {
+  const newState = { ...state };
+  newState['wishesParticipant'] = payload;
+  return newState;
+}

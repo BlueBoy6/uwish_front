@@ -15,9 +15,7 @@ export function* getWishlistsFromIds(
   }
 }
 
-export function* getWishlistsOfUser(
-  userId: number
-): Generator<any | boolean> {
+export function* getWishlistsOfUser(userId: number): Generator<any | boolean> {
   try {
     const { data }: any = yield api.get(
       `/wishlists?filters[caller][id][$eq]=${userId}&populate=*`,
