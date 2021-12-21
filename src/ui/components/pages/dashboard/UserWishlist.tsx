@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import Button from 'ui/components/form/Button';
 
 export default function UserWishlist() {
   const dispatch = useDispatch();
@@ -23,6 +24,7 @@ export default function UserWishlist() {
     <WishlistStyled>
       <h2>Vos wishlists</h2>
       <WishList>
+      <Button>Créer une liste de souhait</Button>
         {wishlists
           ? wishlists.map((wishlist: any) => (
               <WishStyle
@@ -54,6 +56,7 @@ const WishStyle = styled.div`
   border-radius: 5px;
   border-left: 4px solid #3fff54;
   cursor: pointer;
+  place-items: center;
   &:hover {
     background: #e3e3e3;
   }

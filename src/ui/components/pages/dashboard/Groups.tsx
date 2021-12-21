@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import Button from 'ui/components/form/Button';
 
 export default function Bands() {
   
@@ -13,7 +14,8 @@ export default function Bands() {
   return (
     <GroupStyled>
       <h2>Vos groupes</h2>
-      <BandsList>
+      <GroupsList>
+        <Button>Créer un groupe</Button>
         {groups
           ? groups.map((group: any) => (
               <BandStyle
@@ -24,7 +26,7 @@ export default function Bands() {
               </BandStyle>
             ))
           : "Vous n'êtes dans aucun groupe"}
-      </BandsList>
+      </GroupsList>
     </GroupStyled>
   );
 }
@@ -33,7 +35,7 @@ const GroupStyled = styled.div`
   margin-top: 20px;
 `;
 
-const BandsList = styled.div`
+const GroupsList = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-gap: 10px 10px;
@@ -45,6 +47,7 @@ const BandStyle = styled.div`
   border-radius: 5px;
   border-left: 4px solid #3fff54;
   cursor: pointer;
+  place-items: center;
   &:hover {
     background: #e3e3e3;
   }

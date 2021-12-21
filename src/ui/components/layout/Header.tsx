@@ -23,6 +23,7 @@ export default function Header() {
     <Section>
       <GridContainer>
         <ButtonStyled onClick={back}>← Retour</ButtonStyled>
+        <div><h1><span style={{color: '#3fff54'}}>u</span>Wish</h1></div>
         <ButtonStyled onClick={disconnect}>🏃 J'me barre</ButtonStyled>
       </GridContainer>
     </Section>

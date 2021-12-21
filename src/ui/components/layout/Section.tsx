@@ -4,11 +4,11 @@ import styled from 'styled-components';
 export default function Section({
   children,
   title,
-  className
+  className,
 }: {
   children: JSX.Element | JSX.Element[] | string;
-    title?: String;
-    className?: String;
+  title?: String;
+  className?: String;
 }) {
   return (
     <SectionStyle>
@@ -19,12 +19,13 @@ export default function Section({
 }
 
 const SectionStyle = styled.section`
+  position: relative;
   background: #ffffff;
   border-radius: 5px;
   padding: 20px;
   box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.02);
   margin-bottom: 20px;
-  &:last-child{
+  &:last-child {
     margin-bottom: 0px;
   }
 `;
@@ -32,7 +33,7 @@ const SectionTitleStyle = styled.h2`
   margin: 0;
   padding-bottom: 5px;
   position: relative;
-  &:before{
+  &:before {
     content: '';
     width: 40px;
     height: 4px;
