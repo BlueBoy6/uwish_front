@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export default function InputSelect({ options }: { options: strgit ing[] }) {
-  console.log('options :', options);
+export default function InputSelect({ options }: { options: string[] }) {
   return (
     <div>
       <Select>

@@ -2,11 +2,14 @@ import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Button from 'ui/components/form/Button';
+import { useState } from 'react';
+import ModalCreateGroup from './ModalCreateGroup';
 
-export default function Bands() {
-  
+export default function Groups() {
+  const [isModalCreateGroupOpen, setIsModalCreateGroupOpen] = useState(false);
+
   const groups = useSelector((state: any) => {
-    return state?.user?.groups
+    return state?.user?.groups;
   });
 
   const navigate = useNavigate();
@@ -15,18 +18,23 @@ export default function Bands() {
     <GroupStyled>
       <h2>Vos groupes</h2>
       <GroupsList>
-        <Button>Créer un groupe</Button>
+        <Button
+          onClick={() => setIsModalCreateGroupOpen(!isModalCreateGroupOpen)}
+        >
+          Créer un groupe
+        </Button>
         {groups
           ? groups.map((group: any) => (
-              <BandStyle
+              <GroupStyle
                 onClick={() => navigate(`/group/${group.id}`)}
                 key={group.id}
               >
                 {group.name}
-              </BandStyle>
+              </GroupStyle>
             ))
           : "Vous n'êtes dans aucun groupe"}
       </GroupsList>
+      {isModalCreateGroupOpen && <ModalCreateGroup onClickout={() => setIsModalCreateGroupOpen(false)} />}
     </GroupStyled>
   );
 }
@@ -41,7 +49,7 @@ const GroupsList = styled.div`
   grid-gap: 10px 10px;
 `;
 
-const BandStyle = styled.div`
+const GroupStyle = styled.div`
   padding: 10px;
   background: #efefef;
   border-radius: 5px;
