@@ -1,9 +1,13 @@
 import {
+  addNewUserWishlist,
   authenticate,
+  updateUserGroup,
   updateUserWishlists,
   updateWishesWhereUserIsParticipant,
 } from 'store/user/userActions';
 import { persist } from 'store/persist';
+import { groupType } from 'types/group';
+import { wishlistType } from 'types/wishlist';
 
 const userState = {
   ...persist(null, 'user'),
@@ -11,8 +15,8 @@ const userState = {
 
 export type userStateType = {
   user: null;
-  groups: null;
-  wishlists: null;
+  groups: groupType[] | null;
+  wishlists: wishlistType[] | null;
   wishesParticipant: null;
 };
 
@@ -30,6 +34,10 @@ export function userReducer(state = userState, action: any) {
       return updateUserWishlists(state, action.payload);
     case 'user/get-wishes-where-user-is-participant':
       return updateWishesWhereUserIsParticipant(state, action.payload);
+    case 'user/store-new-group':
+      return updateUserGroup(state, action.payload);
+    case 'user/store-new-wishlist':
+      return addNewUserWishlist(state, action.payload);
     default:
       return state;
   }

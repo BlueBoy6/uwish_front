@@ -3,9 +3,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Button from 'ui/components/form/Button';
+import ModalCreateWishlist from './ModalCreateWishlist';
 
 export default function UserWishlist() {
   const dispatch = useDispatch();
+  const [isModalCreateWishlistOpen, setIsModalCreateWishlistOpen] =
+    useState(false);
 
   const [tried, setTried] = useState<boolean>(false);
   const wishlists = useSelector((state: any) => state?.user?.wishlists);
@@ -15,8 +18,8 @@ export default function UserWishlist() {
 
   useEffect(() => {
     if (!tried) {
-      dispatch({ type: 'user/async-get-user-wishlists', payload: {userId} });
-      setTried(true)
+      dispatch({ type: 'user/async-get-user-wishlists', payload: { userId } });
+      setTried(true);
     }
   }, [tried, dispatch, userId]);
 
@@ -24,7 +27,13 @@ export default function UserWishlist() {
     <WishlistStyled>
       <h2>Vos wishlists</h2>
       <WishList>
-      <Button>Créer une liste de souhait</Button>
+        <Button
+          onClick={() =>
+            setIsModalCreateWishlistOpen(!isModalCreateWishlistOpen)
+          }
+        >
+          Créer une liste de souhait
+        </Button>
         {wishlists
           ? wishlists.map((wishlist: any) => (
               <WishStyle
@@ -36,6 +45,11 @@ export default function UserWishlist() {
             ))
           : "Vous n'avez pas de wishlist... créez en une !"}
       </WishList>
+      {isModalCreateWishlistOpen && (
+        <ModalCreateWishlist
+          onClickout={() => setIsModalCreateWishlistOpen(false)}
+        />
+      )}
     </WishlistStyled>
   );
 }

@@ -6,23 +6,25 @@ import InputText from 'ui/components/form/InputText';
 import Modal from 'ui/components/layout/Modal';
 import Section from 'ui/components/layout/Section';
 
-export default function ModalCreateGroup({
+export default function ModalCreateWishlist({
   onClickout,
 }: {
   onClickout: Function;
 }) {
   const dispatch = useDispatch();
   const user = useSelector((state: any) => state.user.user.id);
-  const [nameGroup, setNameGroup] = useState<string>('');
-  const controlSetNameGroup = (e: React.ChangeEvent<HTMLInputElement>): void =>
-    setNameGroup(e.target.value);
+  const [nameWishlist, setNameWishlist] = useState<string>('');
+
+  const controlSetNameWishlist = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ): void => setNameWishlist(e.target.value);
+
   const submitForm = (): void => {
     dispatch({
-      type: 'group/async-create-new-group',
+      type: 'wishlist/async-create-wishlist',
       payload: {
-        name: nameGroup,
-        owner: { id: user },
-        members: [{ id: user }],
+        name: nameWishlist,
+        caller: { id: user },
       },
     });
 
@@ -32,11 +34,11 @@ export default function ModalCreateGroup({
   return (
     <div>
       <Modal onClickout={onClickout}>
-        <Section title="Créez un nouveau super groupe">
+        <Section title="Créez une nouvelle super liste de souhait">
           <InputText
-            placeholder="Nom du nouveau super groupe"
-            onChange={controlSetNameGroup}
-            value={nameGroup}
+            placeholder="Le petit nom de la liste"
+            onChange={controlSetNameWishlist}
+            value={nameWishlist}
           />
           <ButtonStyled onClick={submitForm}>Zéé parti !</ButtonStyled>
         </Section>

@@ -7,7 +7,6 @@ import Section from 'ui/components/layout/Section';
 export default function UserWishlist() {
   let { id } = useParams<'id'>();
   const wishlist = useSelector((state: any) => state.wishlist);
-  const userId = useSelector((state: any) => state?.user?.user?.id);
   const dispatch = useDispatch();
   const a = ['a', 'b', 'c'];
 

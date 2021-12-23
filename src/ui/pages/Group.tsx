@@ -16,15 +16,14 @@ export default function UserWishlist() {
 
   useEffect(() => {
     if (!tried) {
+      console.log('je lance la requete');
+      
       dispatch({
         type: 'group/async-get-group',
         payload: id,
       });
       console.log('group : ', group);
-      
-      if (group) {
-        setTried(true);
-      }
+      setTried(true);
     }
   }, [tried, dispatch, id, group]);
 

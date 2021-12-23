@@ -1,5 +1,5 @@
 const objectGotKey = (object: any, key: string) => {
-  if(object === null) return false
+  if (object === null || object.length === 0) return false;
   return Object.keys(object).includes(key);
 };
 
@@ -7,18 +7,21 @@ function flat(object: any) {
   const objectFlatten = {} as any;
   for (let key in object) {
     if (objectGotKey(object[key], 'data')) {
-      if (objectGotKey(object[key].data, 'attributes')) {
+      if (objectGotKey(object[key]?.data, 'attributes')) {
         objectFlatten[key] = {
           id: object[key].data.id,
           ...object[key].data.attributes,
         };
       } else {
-        if (object[key].data.some((k: any) => objectGotKey(k, 'attributes'))) {
-          objectFlatten[key] = object[key].data.map((key: any) => ({
+        if (object[key].data !== null && object[key].data.some((k: any) => objectGotKey(k, 'attributes'))) {
+          
+          objectFlatten[key] = object[key]?.data.map((key: any) => ({
             id: key.id,
             ...key.attributes,
           }));
-        } else objectFlatten[key] = object[key].data;
+        } else {
+          objectFlatten[key] = object[key]?.data;
+        }
       }
     } else objectFlatten[key] = object[key];
 
@@ -29,7 +32,6 @@ function flat(object: any) {
       };
     }
   }
-  console.groupEnd();
   return objectFlatten;
 }
 

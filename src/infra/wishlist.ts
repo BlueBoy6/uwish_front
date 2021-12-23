@@ -23,3 +23,20 @@ export function* fetchWishlistFromId(id: Number): Generator<any> {
     return false;
   }
 }
+
+export function* postNewWishlist(wishlist: any): Generator<any | boolean> {
+  console.log('wishlist', wishlist);
+  try {
+    if (wishlist) {
+      const newWishlist = yield api.post(`/wishlists`, {
+        data: {
+          ...wishlist,
+        },
+      }) || { data: null };
+      return flatResponseFromApi((newWishlist as any).data.data);
+    }
+  } catch (err: any) {
+    console.error('Ah shit bro, authent failed : ', err.message);
+    return false;
+  }
+}

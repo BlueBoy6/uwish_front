@@ -29,11 +29,10 @@ function* createNewGroupSaga(action: any): Generator {
   console.log('group', group)
   if (group) {
     yield put({
-      type: 'group/create-new-group',
+      type: 'user/store-new-group',
       payload: group,
     });
   }
-  return 'merde'
 }
 
 export function* watchGroupAsync() {

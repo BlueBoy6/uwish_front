@@ -25,7 +25,7 @@ export default function WishlistsOfMembers({
         type: 'group/async-get-wishlists',
         payload: group.id,
       });
-      if (group.wishlists.some((wishlist: wishlistType) => !!wishlist.caller))
+      if (group.wishlists !== null || group.wishlists.some((wishlist: wishlistType) => !!wishlist.caller))
         setTried(true);
     }
   }, [dispatch, wishlists, group, tried]);
@@ -39,6 +39,8 @@ export default function WishlistsOfMembers({
             <WishlistOfMember key={wishlist.id} wishlist={wishlist} />
           ))}
       </WishlistsStyle>
+      {(wishlists.length === 0 || wishlists === null) && (<div>
+      Ce super groupe n'a toujours de liste de souhaits rattaché</div>)}
     </div>
   );
 }
