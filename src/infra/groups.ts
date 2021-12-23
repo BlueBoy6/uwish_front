@@ -6,9 +6,27 @@ export default function* getGroupsOfUser(
 ): Generator<any | boolean> {
   try {
     if (idUser) {
+      console.log('get groups');
+      
       const groups = yield api.get(
         `/groups?filters[members][id][$eq]=${idUser}&populate=*`,
       ) || { data: null };
+      return flatResponseFromApi((groups as any).data.data);
+    }
+  } catch (err: any) {
+    console.error('Ah shit bro, authent failed : ', err.message);
+    return false;
+  }
+}
+
+export function* createNewGroup(group: any): Generator<any | boolean> {
+  try {
+    if (group) {
+      const groups = yield api.post(`/groups`, {
+        data: {
+          ...group,
+        },
+      }) || { data: null };
       return flatResponseFromApi((groups as any).data.data);
     }
   } catch (err: any) {

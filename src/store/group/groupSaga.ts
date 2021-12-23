@@ -1,9 +1,9 @@
 import { put, takeEvery } from 'redux-saga/effects';
 import getGroup from 'infra/group';
 import { getWishlistsFromIds } from 'infra/wishlists';
-import { actionType } from 'types/authent';
+import { createNewGroup } from 'infra/groups';
 
-function* getGroupSaga(action: actionType): Generator {
+function* getGroupSaga(action: any): Generator {
   const group = yield getGroup(action.payload);
   if (group) {
     yield put({
@@ -23,7 +23,21 @@ function* getWishlistsOfGroup(action: any): Generator {
   }
 }
 
+function* createNewGroupSaga(action: any): Generator {
+
+  const group = yield createNewGroup(action.payload);
+  console.log('group', group)
+  if (group) {
+    yield put({
+      type: 'group/create-new-group',
+      payload: group,
+    });
+  }
+  return 'merde'
+}
+
 export function* watchGroupAsync() {
   yield takeEvery('group/async-get-group', getGroupSaga);
   yield takeEvery('group/async-get-wishlists', getWishlistsOfGroup);
+  yield takeEvery('group/async-create-new-group', createNewGroupSaga)
 }

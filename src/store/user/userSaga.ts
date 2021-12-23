@@ -42,6 +42,7 @@ function* getWishesWhereUserIsParticipantSaga(action: any): Generator {
   }
 }
 
+
 export function* watchAuthenticateAsync() {
   yield takeEvery('user/async-authenticate', authenticateSaga);
   yield takeEvery('user/async-get-user-wishlists', getUserWishlists);

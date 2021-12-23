@@ -5,7 +5,7 @@ export default function InputSelect({ options }: { options: string[] }) {
   return (
     <div>
       <Select>
-        {options && options.map((id: string | number) => <option>{id}</option>)}
+        {options && options.map((id: string | number) => <option  key={id}>{id}</option>)}
       </Select>
     </div>
   );

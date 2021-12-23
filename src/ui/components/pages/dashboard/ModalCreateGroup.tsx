@@ -1,5 +1,5 @@
 import { userInfo } from 'os';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from 'ui/components/form/Button';
 import InputSelect from 'ui/components/form/InputSelect';
@@ -12,17 +12,23 @@ export default function ModalCreateGroup({
 }: {
   onClickout: Function;
 }) {
-//   const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const user = useSelector((state: any) => state.user.user.id);
   const [nameGroup, setNameGroup] = useState<string>('');
   const controlSetNameGroup = (e: React.ChangeEvent<HTMLInputElement>): void =>
     setNameGroup(e.target.value);
   const submitForm = (): void => {
-    console.log('user :', user)
-    // dispatch({
-    //   type: 'group/async-create-group',
-    //   payload: { name: nameGroup, owner: user.id },
-    // });
+    console.log('user :', user);
+    const a = dispatch({
+      type: 'group/async-create-new-group',
+      payload: {
+        name: nameGroup,
+        owner: { id: user },
+        members: [{ id: user }],
+      },
+    });
+
+    console.log("a", a)
     console.log('submit', nameGroup);
   };
 
