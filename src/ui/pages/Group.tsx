@@ -8,14 +8,14 @@ import WishlistsOfMembers from 'ui/components/pages/group/WishlistsOfMembers';
 
 export default function UserWishlist() {
   let { id } = useParams<'id'>();
-  const [tried, setTried] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
   const dispatch = useDispatch();
 
   const group = useSelector((state: any) => state?.group) as any;
 
   useEffect(() => {
-    if (!tried) {
+    if (!loaded) {
       console.log('je lance la requete');
       
       dispatch({
@@ -23,9 +23,9 @@ export default function UserWishlist() {
         payload: id,
       });
       console.log('group : ', group);
-      setTried(true);
+      setLoaded(true);
     }
-  }, [tried, dispatch, id, group]);
+  }, [loaded, dispatch, id, group]);
 
   if (group) {
     return (

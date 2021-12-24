@@ -17,19 +17,17 @@ export default function Wishlist() {
     state.user.groups.map((group: groupType) => group.name),
   );
 
-  const [tried, setTried] = useState(false);
+  const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
   const a = ['a', 'b', 'c'];
 
   useEffect(() => {
-    console.log(wishlist);
-    if (!tried) {
-      console.log('je lance le fetch ! ');
+    if (!loaded) {
       dispatch({ type: 'wishlist/async-fetch-datas', payload: { id } });
-      setTried(true);
+      setLoaded(true);
     }
     console.log('wishlist : ', wishlist);
-  }, [wishlist, dispatch, id]);
+  }, [wishlist, dispatch, id, loaded]);
   const isUserAdmin = user?.id === wishlist?.caller?.id;
 
   if (wishlist && wishlist.caller) {

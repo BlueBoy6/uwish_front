@@ -9,7 +9,7 @@ export default function WishlistsOfMembers({
 }: {
   wishlists: wishlistType[];
 }) {
-  const [tried, setTried] = useState(false);
+  const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
   const group = useSelector((state: any) => {
     return state?.group;
@@ -17,7 +17,7 @@ export default function WishlistsOfMembers({
 
   useEffect(() => {
     if (
-      !tried &&
+      !loaded &&
       group.wishlists &&
       !group.wishlists.some((wl: wishlistType) => !!wl.caller)
     ) {
@@ -26,9 +26,9 @@ export default function WishlistsOfMembers({
         payload: group.id,
       });
       if (group.wishlists !== null || group.wishlists.some((wishlist: wishlistType) => !!wishlist.caller))
-        setTried(true);
+        setLoaded(true);
     }
-  }, [dispatch, wishlists, group, tried]);
+  }, [dispatch, wishlists, group, loaded]);
 
   return (
     <div>

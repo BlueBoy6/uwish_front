@@ -10,18 +10,18 @@ export default function UserWishlist() {
   const [isModalCreateWishlistOpen, setIsModalCreateWishlistOpen] =
     useState(false);
 
-  const [tried, setTried] = useState<boolean>(false);
+  const [loaded, setLoaded] = useState<boolean>(false);
   const wishlists = useSelector((state: any) => state?.user?.wishlists);
   const userId = useSelector((state: any) => state?.user?.user?.id);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!tried) {
+    if (!loaded) {
       dispatch({ type: 'user/async-get-user-wishlists', payload: { userId } });
-      setTried(true);
+      setLoaded(true);
     }
-  }, [tried, dispatch, userId]);
+  }, [loaded, dispatch, userId]);
 
   return (
     <WishlistStyled>
