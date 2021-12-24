@@ -20,7 +20,8 @@ export default function Section({
 
 const SectionStyle = styled.section`
   position: relative;
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.75);
+  background: rgba(0,0,0, 0.75);
   border-radius: 5px;
   padding: 20px;
   box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.02);

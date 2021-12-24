@@ -65,6 +65,7 @@ export default function Wish({ wish, wishlist }: { wish: wishesType, wishlist: w
 const LinkStyled = styled.div`
   display: grid;
   place-items: center;
+  text-align: center;
   border-radius: 5px;
   width: 25px;
   height: 25px;
@@ -88,6 +89,7 @@ const Badge = styled.span`
   background: #8a59ff;
   display: grid;
   place-items: center;
+  text-align: center;
   color: #104016;
   color: #ffffff;
 `;

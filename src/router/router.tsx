@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Login } from 'ui/pages/Login';
 import { Dashboard } from 'ui/pages/Dashboard';
 import Group from 'ui/pages/Group';
-import UserWishlist from 'ui/pages/UserWishlist';
+import Wishlist from 'ui/pages/Wishlist';
 import { ProtectedRoutes } from 'router/ProtectedRoutes';
 import 'ui/reset.css';
 
@@ -32,7 +32,7 @@ export function Router() {
           path="user-wishlist/:id"
           element={
             <ProtectedRoutes>
-              <UserWishlist />
+              <Wishlist />
             </ProtectedRoutes>
           }
         />

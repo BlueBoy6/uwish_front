@@ -65,12 +65,14 @@ const WishList = styled.div`
 `;
 
 const WishStyle = styled.div`
+  display: grid;
   padding: 10px;
   background: #efefef;
   border-radius: 5px;
   border-left: 4px solid #3fff54;
   cursor: pointer;
   place-items: center;
+  text-align: center;
   &:hover {
     background: #e3e3e3;
   }

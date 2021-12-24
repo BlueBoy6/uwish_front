@@ -25,14 +25,15 @@ function* toggleParticipant(action: actionTyped): Generator {
 
 function* fetchWishlistSaga(action: actionTyped): Generator {
   const wishlist = yield fetchWishlistFromId(action.payload.id);
-  console.log('la wishlop', wishlist);
+  if (wishlist) {
+    yield put({ type: 'wishlist/get-wishlist', payload: wishlist });
+  }
 }
 
 function* createWishlistSaga(action: actionTyped): Generator {
   const wishlistCreated = yield postNewWishlist(action.payload);
-  console.log('wishlistCreated : ', wishlistCreated);
   if (wishlistCreated) {
-    put({ type: 'user/store-new-wishlist', payload: wishlistCreated });
+    yield put({ type: 'user/store-new-wishlist', payload: wishlistCreated });
   }
 }
 
