@@ -1,11 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export default function InputSelect({ options, value }: { options: string[], value: string }) {
+export default function InputSelect({ options, value }: { options: string[], value?: string }) {
+  console.log('value : ', value)
+  const lechangecmaintenant = (val:any) => console.log(val)
   return (
     <div>
-      <Select>
-        {options && options.map((id: string | number) => <option  key={id}>{id}</option>)}
+      <Select value={value} onChange={lechangecmaintenant}>
+        <option value="">Assigné à aucun groupe</option>
+        {options && options.map((id: string | number) => <option value={id} key={id}>{id}</option>)}
       </Select>
     </div>
   );

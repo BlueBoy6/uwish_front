@@ -17,6 +17,7 @@ export default function Header() {
   const back = () => {
     navigate(-1);
     dispatch({ type: 'group/clean' });
+    dispatch({ type: 'wishlist/clean' });
   };
 
   return (

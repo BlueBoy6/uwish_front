@@ -19,7 +19,6 @@ export default function Wishlist() {
 
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
-  const a = ['a', 'b', 'c'];
 
   useEffect(() => {
     if (!loaded) {
@@ -29,6 +28,9 @@ export default function Wishlist() {
     console.log('wishlist : ', wishlist);
   }, [wishlist, dispatch, id, loaded]);
   const isUserAdmin = user?.id === wishlist?.caller?.id;
+  const catchChange = (evt: any) => {
+    console.log('evt : ', evt)
+  }
 
   if (wishlist && wishlist.caller) {
     return (
@@ -46,8 +48,8 @@ export default function Wishlist() {
           <CardsList>
             {wishlist.wishes.map((wish: wishesType) => (
               <Card key={wish.id}>
-                <InputText value={wish.name} />
-                <InputText placeholder="l'url où on peut trouver ce souhait" value={wish.url} />
+                <InputText value={wish.name} onChange={catchChange} />
+                <InputText placeholder="l'url où on peut trouver ce souhait" value={wish.url} onChange={catchChange} />
               </Card>
             ))}
           </CardsList>

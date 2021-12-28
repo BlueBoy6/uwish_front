@@ -10,6 +10,7 @@ export function wishlistReducer(state = wishlist, action: any) {
   switch (action.type) {
     case 'wishlist/get-wishlist':
       return getWishlistData(state, action.payload);
+    case 'wishlist/clean': return {};
     default:
       return state;
   }
