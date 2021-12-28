@@ -1,5 +1,5 @@
 import { put, takeEvery } from 'redux-saga/effects';
-import { putWish } from 'infra/wish';
+import { postWish, putWish } from 'infra/wish';
 import { fetchWishlistFromId, postNewWishlist } from 'infra/wishlist';
 
 function* toggleParticipant(action: actionTyped): Generator {
@@ -37,10 +37,18 @@ function* createWishlistSaga(action: actionTyped): Generator {
   }
 }
 
+function* postWishSaga(action: actionTyped): Generator {
+  const wish = yield postWish(action.payload);
+  if (wish) {
+    yield put({ type: 'wishlist/add-new-wish', payload: wish });
+  }
+}
+
 export function* watchWishlistAsync() {
-  yield takeEvery('wishlist/async-add-participant', toggleParticipant);
-  yield takeEvery('wishlist/async-fetch-datas', fetchWishlistSaga);
-  yield takeEvery('wishlist/async-create-wishlist', createWishlistSaga);
+  yield takeEvery('saga/wishlist/add-participant', toggleParticipant);
+  yield takeEvery('saga/wishlist/fetch-datas', fetchWishlistSaga);
+  yield takeEvery('saga/wishlist/create-wishlist', createWishlistSaga);
+  yield takeEvery('saga/wishlist/post-wish', postWishSaga);
 }
 
 export type actionTyped = {

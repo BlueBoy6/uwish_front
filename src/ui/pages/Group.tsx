@@ -19,7 +19,7 @@ export default function UserWishlist() {
       console.log('je lance la requete');
       
       dispatch({
-        type: 'group/async-get-group',
+        type: 'saga/group/get-group',
         payload: id,
       });
       console.log('group : ', group);

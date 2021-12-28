@@ -22,7 +22,7 @@ export default function WishlistsOfMembers({
       !group.wishlists.some((wl: wishlistType) => !!wl.caller)
     ) {
       dispatch({
-        type: 'group/async-get-wishlists',
+        type: 'saga/group/get-wishlists',
         payload: group.id,
       });
       if (group.wishlists !== null || group.wishlists.some((wishlist: wishlistType) => !!wishlist.caller))

@@ -22,7 +22,7 @@ export default function Wish({ wish, wishlist }: { wish: wishesType, wishlist: w
   }
 
   const affectYourselfTowish = (e: any) => {
-    dispatch({ type: 'wishlist/async-add-participant', payload: { wish, userId: user.user.id } })
+    dispatch({ type: 'saga/wishlist/add-participant', payload: { wish, userId: user.user.id } })
     stopPropagation(e)
   }
   const userOfGroupFromId = (id: number) =>id !== null ?  membersOfGroup.find((member : any) => member.id === id) : {username: '?'}

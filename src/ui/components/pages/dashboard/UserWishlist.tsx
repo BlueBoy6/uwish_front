@@ -18,7 +18,7 @@ export default function UserWishlist() {
 
   useEffect(() => {
     if (!loaded) {
-      dispatch({ type: 'user/async-get-user-wishlists', payload: { userId } });
+      dispatch({ type: 'saga/user/get-user-wishlists', payload: { userId } });
       setLoaded(true);
     }
   }, [loaded, dispatch, userId]);

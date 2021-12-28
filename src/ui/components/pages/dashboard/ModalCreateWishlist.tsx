@@ -21,7 +21,7 @@ export default function ModalCreateWishlist({
 
   const submitForm = (): void => {
     dispatch({
-      type: 'wishlist/async-create-wishlist',
+      type: 'saga/wishlist/create-wishlist',
       payload: {
         name: nameWishlist,
         caller: { id: user },

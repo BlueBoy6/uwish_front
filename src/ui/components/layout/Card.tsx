@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { MouseEvent }  from 'react';
 import styled from 'styled-components';
 
 export default function Card({
   children,
+  onClick,
 }: {
   children: JSX.Element | JSX.Element[] | string;
   className?: String;
-}) {
-  return <CardStyle>{children}</CardStyle>;
+  onClick?: Function;
+  }) {
+    const emitOnClick = (e: MouseEvent) => onClick && onClick(e);
+  return <CardStyle onClick={emitOnClick}>{children}</CardStyle>;
 }
 
 const CardStyle = styled.div`

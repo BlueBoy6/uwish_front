@@ -11,7 +11,7 @@ export default function WishesWhereUserIsParticipant() {
   useEffect(() => {
     if (!wishes) {
       dispatch({
-        type: 'user/async-get-wishes-where-user-is-participant',
+        type: 'saga/user/get-wishes-where-user-is-participant',
         payload: { userId },
       });
     }

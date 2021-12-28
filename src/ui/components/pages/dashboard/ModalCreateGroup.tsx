@@ -18,7 +18,7 @@ export default function ModalCreateGroup({
     setNameGroup(e.target.value);
   const submitForm = (): void => {
     dispatch({
-      type: 'group/async-create-new-group',
+      type: 'saga/group/create-new-group',
       payload: {
         name: nameGroup,
         owner: { id: user },

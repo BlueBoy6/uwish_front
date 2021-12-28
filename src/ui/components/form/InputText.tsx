@@ -8,9 +8,11 @@ export default function inputText({
   placeholder,
   label,
   onSubmit,
+  onBlur,
 }: {
-  value: string | undefined;
+  value?: string | undefined;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  onBlur?: Function;
   placeholder?: string;
   label?: string;
   onSubmit?: () => void;
@@ -18,6 +20,9 @@ export default function inputText({
   const keyPress = (e: any) => {
     if (e.key === 'Enter' && onSubmit) onSubmit();
   };
+
+  const getBlur = (e: React.FocusEvent<HTMLInputElement>) =>
+    onBlur && onBlur(e);
 
   return (
     <Field>
@@ -28,6 +33,7 @@ export default function inputText({
         placeholder={placeholder}
         onChange={onChange}
         onKeyPress={keyPress}
+        onBlur={getBlur}
       />
     </Field>
   );

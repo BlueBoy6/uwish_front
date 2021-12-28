@@ -1,6 +1,6 @@
 import { persist } from 'store/persist';
 import { wishlistType } from 'types/wishlist';
-import { getWishlistData } from './wishlistActions';
+import { addAWish, getWishlistData } from './wishlistActions';
 
 const wishlist = {
   ...persist(null, 'wishlist'),
@@ -10,7 +10,10 @@ export function wishlistReducer(state = wishlist, action: any) {
   switch (action.type) {
     case 'wishlist/get-wishlist':
       return getWishlistData(state, action.payload);
-    case 'wishlist/clean': return {};
+    case 'wishlist/clean':
+      return {};
+    case 'wishlist/add-new-wish':
+      return addAWish(state, action.payload);
     default:
       return state;
   }

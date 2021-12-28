@@ -44,10 +44,10 @@ function* getWishesWhereUserIsParticipantSaga(action: any): Generator {
 
 
 export function* watchAuthenticateAsync() {
-  yield takeEvery('user/async-authenticate', authenticateSaga);
-  yield takeEvery('user/async-get-user-wishlists', getUserWishlists);
+  yield takeEvery('saga/user/authenticate', authenticateSaga);
+  yield takeEvery('saga/user/get-user-wishlists', getUserWishlists);
   yield takeEvery(
-    'user/async-get-wishes-where-user-is-participant',
+    'saga/user/get-wishes-where-user-is-participant',
     getWishesWhereUserIsParticipantSaga,
   );
 }

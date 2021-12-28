@@ -36,7 +36,7 @@ function* createNewGroupSaga(action: any): Generator {
 }
 
 export function* watchGroupAsync() {
-  yield takeEvery('group/async-get-group', getGroupSaga);
-  yield takeEvery('group/async-get-wishlists', getWishlistsOfGroup);
-  yield takeEvery('group/async-create-new-group', createNewGroupSaga)
+  yield takeEvery('saga/group/get-group', getGroupSaga);
+  yield takeEvery('saga/group/get-wishlists', getWishlistsOfGroup);
+  yield takeEvery('saga/group/create-new-group', createNewGroupSaga)
 }

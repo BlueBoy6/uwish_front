@@ -4,33 +4,41 @@ import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { groupType } from 'types/group';
 import { wishesType } from 'types/wishlist';
+
 import InputSelect from 'ui/components/form/InputSelect';
-import InputText from 'ui/components/form/InputText';
-import Card from 'ui/components/layout/Card';
+
 import Section from 'ui/components/layout/Section';
+import NewWishes from 'ui/components/pages/wishlist/newWishes';
+import Wishes from 'ui/components/pages/wishlist/wishes';
 
 export default function Wishlist() {
   let { id } = useParams<'id'>();
+  const dispatch = useDispatch();
+
   const wishlist = useSelector((state: any) => state.wishlist);
+  const wishes = useSelector((state: any) => state.wishlist.wishes);
   const user = useSelector((state: any) => state.user.user);
   const groups = useSelector((state: any) =>
     state.user.groups.map((group: groupType) => group.name),
   );
 
   const [loaded, setLoaded] = useState(false);
-  const dispatch = useDispatch();
+
+  const [newWishlist, setNewWishlist] = useState<null | {
+    name: string;
+    url: string;
+  }>(null);
 
   useEffect(() => {
     if (!loaded) {
-      dispatch({ type: 'wishlist/async-fetch-datas', payload: { id } });
+      dispatch({ type: 'saga/wishlist/fetch-datas', payload: { id } });
       setLoaded(true);
     }
     console.log('wishlist : ', wishlist);
-  }, [wishlist, dispatch, id, loaded]);
+    console.log('wishes : ', wishes);
+  }, [wishlist, dispatch, id, loaded, wishes]);
+
   const isUserAdmin = user?.id === wishlist?.caller?.id;
-  const catchChange = (evt: any) => {
-    console.log('evt : ', evt)
-  }
 
   if (wishlist && wishlist.caller) {
     return (
@@ -46,12 +54,8 @@ export default function Wishlist() {
           <InputSelect value={wishlist?.group?.name} options={groups} />
           Vos souhaits
           <CardsList>
-            {wishlist.wishes.map((wish: wishesType) => (
-              <Card key={wish.id}>
-                <InputText value={wish.name} onChange={catchChange} />
-                <InputText placeholder="l'url où on peut trouver ce souhait" value={wish.url} onChange={catchChange} />
-              </Card>
-            ))}
+            <Wishes />
+            <NewWishes />
           </CardsList>
         </div>
       </Section>

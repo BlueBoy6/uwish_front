@@ -25,7 +25,7 @@ export function Login() {
   };
   const tryAuth = () =>
     dispatch({
-      type: 'user/async-authenticate',
+      type: 'saga/user/authenticate',
       payload: { identifier: pseudo, password },
     });
   const user = useSelector((state: any) => state?.user) as any;
