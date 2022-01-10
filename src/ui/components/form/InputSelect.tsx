@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export default function InputSelect({ options, value }: { options: string[], value?: string }) {
-  console.log('value : ', value)
+export default function InputSelect({ options, value, onChange }: { options: string[], value?: string, onChange: Function }) {
+
   const lechangecmaintenant = (val:any) => console.log(val)
   return (
     <div>

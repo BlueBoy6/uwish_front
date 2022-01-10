@@ -6,7 +6,6 @@ import WishesWhereUserIsParticipant from 'ui/components/pages/dashboard/WishesWh
 
 export function Dashboard() {
   const state = useSelector(state => state)
-  console.log(state)
   return (
     <Section title="Dashboard">
       <Groups />

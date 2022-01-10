@@ -25,7 +25,7 @@ export function* fetchWishlistFromId(id: Number): Generator<any> {
 }
 
 export function* postNewWishlist(wishlist: any): Generator<any | boolean> {
-  console.log('wishlist', wishlist);
+
   try {
     if (wishlist) {
       const newWishlist = yield api.post(`/wishlists`, {

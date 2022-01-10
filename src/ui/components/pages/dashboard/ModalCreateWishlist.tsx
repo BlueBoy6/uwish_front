@@ -9,7 +9,7 @@ import Section from 'ui/components/layout/Section';
 export default function ModalCreateWishlist({
   onClickout,
 }: {
-  onClickout: Function;
+  onClickout?: Function ;
 }) {
   const dispatch = useDispatch();
   const user = useSelector((state: any) => state.user.user.id);
@@ -28,7 +28,7 @@ export default function ModalCreateWishlist({
       },
     });
 
-    onClickout();
+    onClickout && onClickout();
   };
 
   return (

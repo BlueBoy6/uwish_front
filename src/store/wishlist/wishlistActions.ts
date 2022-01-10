@@ -5,10 +5,31 @@ export function getWishlistData(state: wishlistType, payload: any) {
 }
 
 export function addAWish(state: wishlistType, payload: any) {
-  console.log('state', state)
-  const newState = state;
-  newState['wishes'] = [...state.wishes, payload]
-  console.log('payload :', payload)
-  console.log('newState :', newState)
+
+
+  const newState = {...state, wishes: [...state.wishes, payload]};
+
+  return newState;
+}
+
+
+export function deleteAWish(state: wishlistType, payload: any) {
+
+
+  const newState = {...state , wishes:state.wishes.filter(wish => wish.id !== payload)};
+
+  return newState;
+}
+
+export function updateAWish(state: wishlistType, wish: any) {
+
+
+  const newState = {
+    ...state, wishes: state.wishes.map(actualWish => {
+      if (actualWish.id === wish.id) return wish
+      return actualWish
+    })
+  };
+
   return newState;
 }

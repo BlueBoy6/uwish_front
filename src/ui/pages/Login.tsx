@@ -12,6 +12,7 @@ import styled from 'styled-components';
 export function Login() {
   const [pseudo, setPseudo] = useState<string>('David');
   const [password, setPassword] = useState<string>('David*');
+  const [loading, setLoading] = useState<boolean>(false)
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -24,18 +25,25 @@ export function Login() {
     setPassword(e.target.value);
   };
   const tryAuth = () =>
+  {
+    setLoading(true)
     dispatch({
       type: 'saga/user/authenticate',
       payload: { identifier: pseudo, password },
-    });
+    });}
   const user = useSelector((state: any) => state?.user) as any;
   useEffect(() => {
-    if (user && user?.user?.jwt !== undefined) navigate('/dashboard');
+    if (user && user?.user?.jwt !== undefined) {
+      setLoading(false)
+      navigate('/dashboard');
+    }
   }, [user, navigate]);
 
   return (
     <Page verticalAlign="start">
       <Section title="Login">
+        {!loading ? (
+        <>
         <Field>
           <InputText
             label="pseudo"
@@ -51,7 +59,9 @@ export function Login() {
             onSubmit={tryAuth}
           />
         </Field>
-        <ButtonWithMargin onClick={tryAuth}>Zéé parti</ButtonWithMargin>
+            <ButtonWithMargin onClick={tryAuth}>Zéé parti</ButtonWithMargin>
+          </>) :
+        <div>ça charge, à dos de cheval</div>}
       </Section>
       <Footer />
     </Page>

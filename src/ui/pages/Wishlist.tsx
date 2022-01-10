@@ -9,14 +9,14 @@ import InputSelect from 'ui/components/form/InputSelect';
 
 import Section from 'ui/components/layout/Section';
 import NewWishes from 'ui/components/pages/wishlist/newWishes';
-import Wishes from 'ui/components/pages/wishlist/wishes';
+import Wish from 'ui/components/pages/wishlist/wish';
 
 export default function Wishlist() {
   let { id } = useParams<'id'>();
   const dispatch = useDispatch();
 
-  const wishlist = useSelector((state: any) => state.wishlist);
-  const wishes = useSelector((state: any) => state.wishlist.wishes);
+  const wishlist = useSelector((state: any) => state?.wishlist);
+  const wishes = useSelector((state: any) => state?.wishlist?.wishes);
   const user = useSelector((state: any) => state.user.user);
   const groups = useSelector((state: any) =>
     state.user.groups.map((group: groupType) => group.name),
@@ -24,21 +24,16 @@ export default function Wishlist() {
 
   const [loaded, setLoaded] = useState(false);
 
-  const [newWishlist, setNewWishlist] = useState<null | {
-    name: string;
-    url: string;
-  }>(null);
-
   useEffect(() => {
     if (!loaded) {
       dispatch({ type: 'saga/wishlist/fetch-datas', payload: { id } });
       setLoaded(true);
     }
-    console.log('wishlist : ', wishlist);
-    console.log('wishes : ', wishes);
   }, [wishlist, dispatch, id, loaded, wishes]);
 
   const isUserAdmin = user?.id === wishlist?.caller?.id;
+
+
 
   if (wishlist && wishlist.caller) {
     return (
@@ -54,7 +49,7 @@ export default function Wishlist() {
           <InputSelect value={wishlist?.group?.name} options={groups} />
           Vos souhaits
           <CardsList>
-            <Wishes />
+            {wishes && wishes.map((wish: wishesType) => <Wish key={wish.id} wish={wish} />)}
             <NewWishes />
           </CardsList>
         </div>

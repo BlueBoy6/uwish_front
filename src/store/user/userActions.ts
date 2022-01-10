@@ -33,7 +33,6 @@ export function updateWishesWhereUserIsParticipant(
 
 export function updateUserGroup(state: userStateType, newGroup: any) {
   const newState = { ...state };
-  console.log('newGroup : ', newGroup);
   if (Array.isArray(newState.groups)) {
     newState['groups'] = [...newState.groups, newGroup];
   }

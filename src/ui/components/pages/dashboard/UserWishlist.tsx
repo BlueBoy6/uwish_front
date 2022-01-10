@@ -46,9 +46,7 @@ export default function UserWishlist() {
           : "Vous n'avez pas de wishlist... créez en une !"}
       </WishList>
       {isModalCreateWishlistOpen && (
-        <ModalCreateWishlist
-          onClickout={() => setIsModalCreateWishlistOpen(false)}
-        />
+        <ModalCreateWishlist />
       )}
     </WishlistStyled>
   );

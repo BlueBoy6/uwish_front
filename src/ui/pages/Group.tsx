@@ -16,13 +16,10 @@ export default function UserWishlist() {
 
   useEffect(() => {
     if (!loaded) {
-      console.log('je lance la requete');
-      
       dispatch({
         type: 'saga/group/get-group',
         payload: id,
       });
-      console.log('group : ', group);
       setLoaded(true);
     }
   }, [loaded, dispatch, id, group]);

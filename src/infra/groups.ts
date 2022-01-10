@@ -6,8 +6,7 @@ export default function* getGroupsOfUser(
 ): Generator<any | boolean> {
   try {
     if (idUser) {
-      console.log('get groups');
-      
+
       const groups = yield api.get(
         `/groups?filters[members][id][$eq]=${idUser}&populate=*`,
       ) || { data: null };
